@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace rolesDemoSSD.Models
 {
-    public class ProductsModel
+    public class Product
     {
         [Key]
         public int ProductID { get; set; }
@@ -23,10 +23,11 @@ namespace rolesDemoSSD.Models
         public string Description { get; set; }
         public string LocationTag { get; set; }
         [Key]
-        [ForeignKey("Invoices")]
+        [ForeignKey("Invoice")]
         public string InvoiceID { get; set; }
         [Key]
-        [ForeignKey("Users")]
+        [ForeignKey("User")]
         public string UserID { get; set; }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace rolesDemoSSD.Models
 {
-    public class InvoicesModel
+    public class Invoice
     {
         [Key]
         public int InvoiceID { get; set; }
@@ -17,7 +17,9 @@ namespace rolesDemoSSD.Models
         [Required]
         public string PaymentMethod { get; set; }
         [Key]
-        [ForeignKey("Users")]
+        [ForeignKey("User")]
         public string UserId { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rolesDemoSSD.Models
 {
-    public class UserModel
+    public class User
     {
         [Key]
         public int UserID { get; set; }
@@ -26,5 +26,7 @@ namespace rolesDemoSSD.Models
         [Required]
         public string Password { get; set; }
         public bool isAdmin { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
