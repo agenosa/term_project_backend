@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using rolesDemoSSD.ViewModels;
 using System.ComponentModel.DataAnnotations.Schema;
+using rolesDemoSSD.Models;
 
 namespace rolesDemoSSD.Data
 {
@@ -77,11 +78,15 @@ namespace rolesDemoSSD.Data
 
         public DbSet<rolesDemoSSD.ViewModels.UserRoleVM> UserRoleVM { get; set; }
 
-
+        // -------------------------------------------------------------------
         // Define entity collections.
         public DbSet<Produce> Produces { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<ProduceSupplier> ProduceSuppliers { get; set; }
+        // --------------------------------------------------------------------
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,6 +94,65 @@ namespace rolesDemoSSD.Data
             // to the base class is also needed at the start of the method.
             base.OnModelCreating(modelBuilder);
 
+            // Defining Foreign Keys
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.User)
+                .WithMany(p => p.Products)
+                .HasForeignKey(fk => new { fk.UserID })
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Invoice)
+                .WithMany(p => p.Products)
+                .HasForeignKey(fk => new { fk.InvoiceID })
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            modelBuilder.Entity<Invoice>()
+                .HasOne(p => p.User)
+                .WithMany(p => p.Invoices)
+                .HasForeignKey(fk => new { fk.UserID })
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    ProductID = 1,
+                    ProductName = "Black Diamond Hot Wire",
+                    Category = "Climbing",
+                    Price = 5.66M,
+                    Photo = "/",
+                    Description = "Black Diamond Hot Wire QucikPack 12cm",
+                    LocationTag = "/",
+                    UserID = 1,
+                    InvoiceID = 1
+                });
+            modelBuilder.Entity<Invoice>().HasData(
+                new Invoice
+                {
+                    InvoiceID = 1,
+                    InvoiceDate = new DateTime(2022, 2, 8),
+                    InvoiceTotal = 7.99M,
+                    PaymentMethod = "Visa",
+                    UserID = 1
+                });
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    UserID = 1,
+                    UserName = "Gaurav453",
+                    FirstName = "Gaurav",
+                    LastName = "Joshi",
+                    PhoneNumber = "7788888888",
+                    Email = "joshig@bcit.ca",
+                    City = "Vancouver",
+                    StreetAddress = "45 Mayfair Ave",
+                    Country = "Canada",
+                    PostalCode = "V5V43N",
+                    Password = "P@ssw0rd!",
+                    isAdmin = true
+                });
+
+            // -------------------------------------------------------------------
             // Define composite primary keys.
             modelBuilder.Entity<ProduceSupplier>()
                 .HasKey(ps => new { ps.ProduceID, ps.SupplierID });
@@ -116,6 +180,8 @@ namespace rolesDemoSSD.Data
 
             modelBuilder.Entity<ProduceSupplier>().HasData(
                 new ProduceSupplier { SupplierID = 1, ProduceID = 1, Qty = 25 });
+
+            // -----------------------------------------------------------------------------------
         }
     }
 }
