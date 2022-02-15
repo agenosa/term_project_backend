@@ -10,45 +10,6 @@ using rolesDemoSSD.Models;
 
 namespace rolesDemoSSD.Data
 {
-    public class Produce
-    {
-        [Key]
-        public int ProduceID { get; set; }
-        public string Description { get; set; }
-
-        // Navigation properties.
-        // Child.        
-        public virtual ICollection<ProduceSupplier>
-            ProduceSuppliers
-        { get; set; }
-    }
-
-    public class Supplier
-    {
-        [Key]
-        public int SupplierID { get; set; }
-        public string SupplierName { get; set; }
-
-        // Navigation properties.
-        // Child.
-        public virtual ICollection<ProduceSupplier>
-            ProduceSuppliers
-        { get; set; }
-    }
-
-    public class ProduceSupplier
-    {
-        [Key, Column(Order = 0)]
-        public int ProduceID { get; set; }
-        [Key, Column(Order = 1)]
-        public int SupplierID { get; set; }
-        public int Qty { get; set; }
-
-        // Navigation properties.
-        // Parents.
-        public virtual Produce Produce { get; set; }
-        public virtual Supplier Supplier { get; set; }
-    }
 
     public class MyRegisteredUser
     {
@@ -86,7 +47,7 @@ namespace rolesDemoSSD.Data
         // --------------------------------------------------------------------
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<MyUser> MyUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -135,8 +96,8 @@ namespace rolesDemoSSD.Data
                     PaymentMethod = "Visa",
                     UserID = 1
                 });
-            modelBuilder.Entity<User>().HasData(
-                new User
+            modelBuilder.Entity<MyUser>().HasData(
+                new MyUser
                 {
                     UserID = 1,
                     UserName = "Gaurav453",

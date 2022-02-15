@@ -22,6 +22,6 @@ namespace rolesDemoSSD.Models
         public int UserID { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
-        public virtual User User { get; set; }
+        public virtual MyUser User { get; set; }
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using rolesDemoSSD.Data;
+using rolesDemoSSD.Models;
 
 namespace rolesDemoSSD.Areas.Identity.Pages.Account
 {
@@ -59,6 +60,33 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
+            public string UserName { get; set; }
+
+            [Required]
+            [DataType(DataType.PhoneNumber, ErrorMessage = "Incorrect Format")]
+            public string PhoneNumber { get; set; } // ^^^^May neeed to change datatype
+            
+            [Required]
+            public string City { get; set; }
+
+            [Required]
+            public string StreetAddress { get; set; }
+
+            [Required]
+            public string Country { get; set; }
+
+            [Required]
+            [DataType(DataType.PostalCode)]
+            [Range(6, 6, ErrorMessage = "Please Enter correct format. Eg.C5X35B")]
+            public string PostalCode { get; set; }
+
+            [Required]
+            public bool isAdmin { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -90,12 +118,19 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     // Normally this code would be placed in a repository.
-                    MyRegisteredUser registerUser = new MyRegisteredUser()
+                    MyUser myusers = new MyUser()
                     {
+                        UserName = Input.UserName,
                         Email = Input.Email,
-                        FirstName = Input.FirstName
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        PhoneNumber = Input.PhoneNumber,
+                        City = Input.City,
+                        StreetAddress = Input.StreetAddress,
+                        Country = Input.Country,
+                        PostalCode = Input.PostalCode,
                     };
-                    _context.MyRegisteredUsers.Add(registerUser);
+                    _context.MyUsers.Add(myusers);
                     _context.SaveChanges();
 
                     _logger.LogInformation("User created a new account with password.");
