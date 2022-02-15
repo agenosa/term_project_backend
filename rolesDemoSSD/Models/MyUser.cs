@@ -36,7 +36,7 @@ namespace rolesDemoSSD.Models
         public string Password { get; set; }
         [Required]
         public bool isAdmin { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }

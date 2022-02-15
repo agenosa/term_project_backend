@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using rolesDemoSSD.Data;
 using rolesDemoSSD.Models;
@@ -26,6 +27,8 @@ namespace rolesDemoSSD.Controllers
         {
             return View();
         }
+
+      
 
 
         [Authorize]

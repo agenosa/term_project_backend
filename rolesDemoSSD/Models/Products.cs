@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rolesDemoSSD.Models
 {
-    public class Product
+    public class Products
     {
         [Key]
         public int ProductID { get; set; }

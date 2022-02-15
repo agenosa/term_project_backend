@@ -46,7 +46,7 @@ namespace rolesDemoSSD.Data
         public DbSet<ProduceSupplier> ProduceSuppliers { get; set; }
         // --------------------------------------------------------------------
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Products> Products { get; set; }
         public DbSet<MyUser> MyUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,13 +56,13 @@ namespace rolesDemoSSD.Data
             base.OnModelCreating(modelBuilder);
 
             // Defining Foreign Keys
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Products>()
                 .HasOne(p => p.User)
                 .WithMany(p => p.Products)
                 .HasForeignKey(fk => new { fk.UserID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Products>()
                 .HasOne(p => p.Invoice)
                 .WithMany(p => p.Products)
                 .HasForeignKey(fk => new { fk.InvoiceID })
@@ -74,8 +74,8 @@ namespace rolesDemoSSD.Data
                 .HasForeignKey(fk => new { fk.UserID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
-            modelBuilder.Entity<Product>().HasData(
-                new Product
+            modelBuilder.Entity<Products>().HasData(
+                new Products
                 {
                     ProductID = 1,
                     ProductName = "Black Diamond Hot Wire",
@@ -144,5 +144,7 @@ namespace rolesDemoSSD.Data
 
             // -----------------------------------------------------------------------------------
         }
+
+        public DbSet<rolesDemoSSD.Models.ProductVM> ProductVM { get; set; }
     }
 }
