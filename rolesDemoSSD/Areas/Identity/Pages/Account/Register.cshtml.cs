@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -59,19 +60,18 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [Display(Name = "First Name")]
+            [DisplayName("First Name")]
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "Last Name")]
+            [DisplayName("Last Name")]
             public string LastName { get; set; }
 
-            [Required]
-            public string UserName { get; set; }
+            //[Required]
+            //public string UserName { get; set; }
 
             [Required]
             [DataType(DataType.PhoneNumber, ErrorMessage = "Incorrect Format")]
@@ -81,14 +81,16 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
             public string City { get; set; }
 
             [Required]
+            [DisplayName("Street Addresss")]
             public string StreetAddress { get; set; }
 
             [Required]
             public string Country { get; set; }
 
             [Required]
+            [DisplayName("Postal Code")]
             [DataType(DataType.PostalCode)]
-            [Range(6, 6, ErrorMessage = "Please Enter correct format. Eg.C5X35B")]
+            [StringLength(6, ErrorMessage = "Please Enter correct format. Eg.C5X35B")]
             public string PostalCode { get; set; }
 
             [Required]
@@ -139,7 +141,7 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
                     // Normally this code would be placed in a repository.
                     MyUser myusers = new MyUser()
                     {
-                        UserName = Input.UserName,
+                        UserName = Input.Email,
                         Email = Input.Email,
                         FirstName = Input.FirstName,
                         LastName = Input.LastName,
@@ -148,6 +150,7 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
                         StreetAddress = Input.StreetAddress,
                         Country = Input.Country,
                         PostalCode = Input.PostalCode,
+                        Password = Input.Password
                     };
                     _context.MyUsers.Add(myusers);
                     _context.SaveChanges();

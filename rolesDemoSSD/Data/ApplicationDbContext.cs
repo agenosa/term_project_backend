@@ -57,7 +57,7 @@ namespace rolesDemoSSD.Data
 
             // Defining Foreign Keys
             modelBuilder.Entity<Products>()
-                .HasOne(p => p.User)
+                .HasOne(p => p.MyUser)
                 .WithMany(p => p.Products)
                 .HasForeignKey(fk => new { fk.UserID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
@@ -69,7 +69,7 @@ namespace rolesDemoSSD.Data
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
             modelBuilder.Entity<Invoice>()
-                .HasOne(p => p.User)
+                .HasOne(p => p.MyUser)
                 .WithMany(p => p.Invoices)
                 .HasForeignKey(fk => new { fk.UserID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete

@@ -9,8 +9,8 @@ using rolesDemoSSD.Data;
 namespace rolesDemoSSD.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220208222524_NewModelCreated")]
-    partial class NewModelCreated
+    [Migration("20220216102759_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -233,79 +233,6 @@ namespace rolesDemoSSD.Migrations
                     b.ToTable("MyRegisteredUsers");
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Data.Produce", b =>
-                {
-                    b.Property<int>("ProduceID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ProduceID");
-
-                    b.ToTable("Produces");
-
-                    b.HasData(
-                        new
-                        {
-                            ProduceID = 1,
-                            Description = "Oranges"
-                        });
-                });
-
-            modelBuilder.Entity("rolesDemoSSD.Data.ProduceSupplier", b =>
-                {
-                    b.Property<int>("ProduceID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SupplierID")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ProduceID", "SupplierID");
-
-                    b.HasIndex("SupplierID");
-
-                    b.ToTable("ProduceSuppliers");
-
-                    b.HasData(
-                        new
-                        {
-                            ProduceID = 1,
-                            SupplierID = 1,
-                            Qty = 25
-                        });
-                });
-
-            modelBuilder.Entity("rolesDemoSSD.Data.Supplier", b =>
-                {
-                    b.Property<int>("SupplierID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SupplierName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("SupplierID");
-
-                    b.ToTable("Suppliers");
-
-                    b.HasData(
-                        new
-                        {
-                            SupplierID = 1,
-                            SupplierName = "Kin's Market"
-                        },
-                        new
-                        {
-                            SupplierID = 2,
-                            SupplierName = "Fresh Street Market"
-                        });
-                });
-
             modelBuilder.Entity("rolesDemoSSD.Models.Invoice", b =>
                 {
                     b.Property<int>("InvoiceID")
@@ -342,7 +269,169 @@ namespace rolesDemoSSD.Migrations
                         });
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Models.Product", b =>
+            modelBuilder.Entity("rolesDemoSSD.Models.MyUser", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("isAdmin")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("MyUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = 1,
+                            City = "Vancouver",
+                            Country = "Canada",
+                            Email = "joshig@bcit.ca",
+                            FirstName = "Gaurav",
+                            LastName = "Joshi",
+                            Password = "P@ssw0rd!",
+                            PhoneNumber = "7788888888",
+                            PostalCode = "V5V43N",
+                            StreetAddress = "45 Mayfair Ave",
+                            UserName = "Gaurav453",
+                            isAdmin = true
+                        });
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.Produce", b =>
+                {
+                    b.Property<int>("ProduceID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ProduceID");
+
+                    b.ToTable("Produces");
+
+                    b.HasData(
+                        new
+                        {
+                            ProduceID = 1,
+                            Description = "Oranges"
+                        });
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.ProduceSupplier", b =>
+                {
+                    b.Property<int>("ProduceID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SupplierID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProduceID", "SupplierID");
+
+                    b.HasIndex("SupplierID");
+
+                    b.ToTable("ProduceSuppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            ProduceID = 1,
+                            SupplierID = 1,
+                            Qty = 25
+                        });
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.ProductVM", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("InvoiceID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("LocationTag")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductID");
+
+                    b.HasIndex("InvoiceID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("ProductVM");
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.Products", b =>
                 {
                     b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd()
@@ -400,74 +489,29 @@ namespace rolesDemoSSD.Migrations
                         });
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Models.User", b =>
+            modelBuilder.Entity("rolesDemoSSD.Models.Supplier", b =>
                 {
-                    b.Property<int>("UserID")
+                    b.Property<int>("SupplierID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
-                        .IsRequired()
+                    b.Property<string>("SupplierName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasKey("SupplierID");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("isAdmin")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("UserID");
-
-                    b.ToTable("Users");
+                    b.ToTable("Suppliers");
 
                     b.HasData(
                         new
                         {
-                            UserID = 1,
-                            City = "Vancouver",
-                            Country = "Canada",
-                            Email = "joshig@bcit.ca",
-                            FirstName = "Gaurav",
-                            LastName = "Joshi",
-                            Password = "P@ssw0rd!",
-                            PhoneNumber = "7788888888",
-                            PostalCode = "V5V43N",
-                            StreetAddress = "45 Mayfair Ave",
-                            UserName = "Gaurav453",
-                            isAdmin = true
+                            SupplierID = 1,
+                            SupplierName = "Kin's Market"
+                        },
+                        new
+                        {
+                            SupplierID = 2,
+                            SupplierName = "Fresh Street Market"
                         });
                 });
 
@@ -565,15 +609,26 @@ namespace rolesDemoSSD.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Data.ProduceSupplier", b =>
+            modelBuilder.Entity("rolesDemoSSD.Models.Invoice", b =>
                 {
-                    b.HasOne("rolesDemoSSD.Data.Produce", "Produce")
+                    b.HasOne("rolesDemoSSD.Models.MyUser", "MyUser")
+                        .WithMany("Invoices")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("MyUser");
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.ProduceSupplier", b =>
+                {
+                    b.HasOne("rolesDemoSSD.Models.Produce", "Produce")
                         .WithMany("ProduceSuppliers")
                         .HasForeignKey("ProduceID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("rolesDemoSSD.Data.Supplier", "Supplier")
+                    b.HasOne("rolesDemoSSD.Models.Supplier", "Supplier")
                         .WithMany("ProduceSuppliers")
                         .HasForeignKey("SupplierID")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -584,29 +639,18 @@ namespace rolesDemoSSD.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Models.Invoice", b =>
-                {
-                    b.HasOne("rolesDemoSSD.Models.User", "User")
-                        .WithMany("Invoices")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("rolesDemoSSD.Models.Product", b =>
+            modelBuilder.Entity("rolesDemoSSD.Models.ProductVM", b =>
                 {
                     b.HasOne("rolesDemoSSD.Models.Invoice", "Invoice")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("InvoiceID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("rolesDemoSSD.Models.User", "User")
-                        .WithMany("Products")
+                    b.HasOne("rolesDemoSSD.Models.MyUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Invoice");
@@ -614,14 +658,23 @@ namespace rolesDemoSSD.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Data.Produce", b =>
+            modelBuilder.Entity("rolesDemoSSD.Models.Products", b =>
                 {
-                    b.Navigation("ProduceSuppliers");
-                });
+                    b.HasOne("rolesDemoSSD.Models.Invoice", "Invoice")
+                        .WithMany("Products")
+                        .HasForeignKey("InvoiceID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-            modelBuilder.Entity("rolesDemoSSD.Data.Supplier", b =>
-                {
-                    b.Navigation("ProduceSuppliers");
+                    b.HasOne("rolesDemoSSD.Models.MyUser", "MyUser")
+                        .WithMany("Products")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("MyUser");
                 });
 
             modelBuilder.Entity("rolesDemoSSD.Models.Invoice", b =>
@@ -629,11 +682,21 @@ namespace rolesDemoSSD.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("rolesDemoSSD.Models.User", b =>
+            modelBuilder.Entity("rolesDemoSSD.Models.MyUser", b =>
                 {
                     b.Navigation("Invoices");
 
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.Produce", b =>
+                {
+                    b.Navigation("ProduceSuppliers");
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.Supplier", b =>
+                {
+                    b.Navigation("ProduceSuppliers");
                 });
 #pragma warning restore 612, 618
         }

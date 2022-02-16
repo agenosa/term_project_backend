@@ -19,9 +19,8 @@ namespace rolesDemoSSD.Controllers
         }
         public ActionResult Index()
         {
-            ProductRepo productRepo = new (_context);
-            var products = productRepo.All();
-            return View(products);
+           
+            return View(_context.Products);
         }
 
     }

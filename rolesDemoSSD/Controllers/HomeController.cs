@@ -39,7 +39,7 @@ namespace rolesDemoSSD.Controllers
             string userName = User.Identity.Name;
 
             // Usually this section would be in a repository.
-            var registeredUser = _context.MyRegisteredUsers.Where(ru => ru.Email == userName)
+            var registeredUser = _context.MyUsers.Where(ru => ru.Email == userName)
                                 .FirstOrDefault();// Use FirstOrDefault() when getting one item
 
 

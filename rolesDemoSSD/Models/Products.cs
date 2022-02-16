@@ -29,7 +29,7 @@ namespace rolesDemoSSD.Models
         [Required]
         public int InvoiceID { get; set; }
 
-        public virtual MyUser User { get; set; }
+        public virtual MyUser MyUser { get; set; }
         public virtual Invoice Invoice { get; set; }
     }
 }
