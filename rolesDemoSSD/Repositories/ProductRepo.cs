@@ -25,5 +25,13 @@ namespace rolesDemoSSD.Repositories
             });
             return products;
         }
+        
+        //public ProductVM Get (int productID)
+        //{
+        //    var product = _context.Products.Select(p => new ProductVM())
+
+        //    return product;
+
+        //}
     }
 }
