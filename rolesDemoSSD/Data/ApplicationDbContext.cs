@@ -86,6 +86,18 @@ namespace rolesDemoSSD.Data
                     LocationTag = "/",
                     UserID = 1,
                     InvoiceID = 1
+                },
+                new Products
+                {
+                    ProductID = 2,
+                    ProductName = "Baseball Glove",
+                    Category = "Baseball",
+                    Price = 10.66M,
+                    Photo = "/",
+                    Description = "An Average Baseball Glove",
+                    LocationTag = "/",
+                    UserID = 1,
+                    InvoiceID = 1
                 });
             modelBuilder.Entity<Invoice>().HasData(
                 new Invoice

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace rolesDemoSSD.Migrations
 {
-    public partial class initial : Migration
+    public partial class lC : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -397,6 +397,11 @@ namespace rolesDemoSSD.Migrations
                 table: "Products",
                 columns: new[] { "ProductID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
                 values: new object[] { 1, "Climbing", "Black Diamond Hot Wire QucikPack 12cm", 1, "/", "/", 5.66m, "Black Diamond Hot Wire", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
+                values: new object[] { 2, "Baseball", "An Average Baseball Glove", 1, "/", "/", 10.66m, "Baseball Glove", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

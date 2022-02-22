@@ -39,11 +39,19 @@
                         </li>
                     </ul>
                     <form asp-controller="Product" asp-action="Index">
-                        
-                            <input type="text" name="SearchString" />
-                            <input type="submit" value="Search" />
+
+                        <input type="text" name="SearchString" />
+                        <input type="submit" value="Search" />
+                  
                     </form>
-                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a asp-area="" class="nav-link text-dark" asp-controller="Home" asp-action="SecureArea">
+                                Account
+                            </a>
+                        </li>
+                        </ul>
+                        <partial name="_LoginPartial" />
 
                 </div>
             </div>

@@ -9,8 +9,8 @@ using rolesDemoSSD.Data;
 namespace rolesDemoSSD.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220216102759_initial")]
-    partial class initial
+    [Migration("20220222023952_lC")]
+    partial class lC
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -485,6 +485,18 @@ namespace rolesDemoSSD.Migrations
                             Photo = "/",
                             Price = 5.66m,
                             ProductName = "Black Diamond Hot Wire",
+                            UserID = 1
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            Category = "Baseball",
+                            Description = "An Average Baseball Glove",
+                            InvoiceID = 1,
+                            LocationTag = "/",
+                            Photo = "/",
+                            Price = 10.66m,
+                            ProductName = "Baseball Glove",
                             UserID = 1
                         });
                 });

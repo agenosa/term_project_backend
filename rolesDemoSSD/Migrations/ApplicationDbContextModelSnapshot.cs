@@ -484,6 +484,18 @@ namespace rolesDemoSSD.Migrations
                             Price = 5.66m,
                             ProductName = "Black Diamond Hot Wire",
                             UserID = 1
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            Category = "Baseball",
+                            Description = "An Average Baseball Glove",
+                            InvoiceID = 1,
+                            LocationTag = "/",
+                            Photo = "/",
+                            Price = 10.66m,
+                            ProductName = "Baseball Glove",
+                            UserID = 1
                         });
                 });
 
