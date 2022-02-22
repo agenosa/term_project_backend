@@ -21,17 +21,32 @@ namespace rolesDemoSSD.Repositories
         {
             var products = _context.Products.Select(p => new ProductVM()
             {
-                ProductID = p.ProductID
+                ProductID = p.ProductID,
+                ProductName = p.ProductName,
+                Photo = p.Photo,
+                Category = p.Category,
+                Price = p.Price
+
             });
             return products;
         }
-        
-        //public ProductVM Get (int productID)
-        //{
-        //    var product = _context.Products.Select(p => new ProductVM())
 
-        //    return product;
+        public ProductVM Get(int productID)
+        {
+            var product = _context.Products.Select(p => new ProductVM()
+            {
+                ProductID = p.ProductID,
+                ProductName = p.ProductName,
+                Photo = p.Photo,
+                Description = p.Description,
+                Category = p.Category,
+                Price = p.Price
 
-        //}
+            }).Where(p => p.ProductID == productID)
+            .FirstOrDefault();
+
+            return product;
+
+        }
     }
 }

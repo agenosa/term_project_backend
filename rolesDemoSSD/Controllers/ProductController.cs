@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using rolesDemoSSD.Data;
+using rolesDemoSSD.Models;
 using rolesDemoSSD.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,7 @@ namespace rolesDemoSSD.Controllers
         {
             _context = context;
         }
-        //public ActionResult Index()
-        //{
 
-        //    return View(_context.Products);
-        //}
 
         public async Task<IActionResult> Index(string searchString)
         {
@@ -54,5 +51,12 @@ namespace rolesDemoSSD.Controllers
             return View(await products.AsNoTracking().ToListAsync());
         }
 
+        public ActionResult Details(int productID)
+        {
+            Console.WriteLine(productID);
+            ProductRepo productRepo = new ProductRepo(_context);
+            ProductVM productVM = productRepo.Get(productID);
+            return View(productVM);
+        }
     }
 }
