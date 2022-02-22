@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                
+
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Tantalus Consignment</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -38,11 +38,19 @@
                             </a>
                         </li>
                     </ul>
-                    <form asp-controller="Product" asp-action="Index">
+                    @*<form asp-controller="Product" asp-action="Index">
 
-                        <input type="text" name="SearchString" />
-                        <input type="submit" value="Search" />
-                  
+                            <input type="text" name="SearchString" />
+                            <input type="submit" value="Search" />
+
+                        </form>*@
+                    <form asp-action="Index" method="get" asp-controller="Product">
+                        <div class="form-actions no-color">
+
+                            <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                            <input type="submit" value="Search" class="btn btn-default" />
+
+                        </div>
                     </form>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -50,8 +58,8 @@
                                 Account
                             </a>
                         </li>
-                        </ul>
-                        <partial name="_LoginPartial" />
+                    </ul>
+                    <partial name="_LoginPartial" />
 
                 </div>
             </div>

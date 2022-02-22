@@ -17,10 +17,41 @@ namespace rolesDemoSSD.Controllers
         {
             _context = context;
         }
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+
+        //    return View(_context.Products);
+        //}
+
+        public async Task<IActionResult> Index(string searchString)
         {
-           
-            return View(_context.Products);
+            //ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["CurrentFilter"] = searchString;
+
+            var products = from s in _context.Products
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.ProductName.ToLower().Contains(searchString));
+
+            }
+            //switch (sortOrder)
+            //{
+            //    case "name_desc":
+            //        students = students.OrderByDescending(s => s.LastName);
+            //        break;
+            //    case "Date":
+            //        students = students.OrderBy(s => s.EnrollmentDate);
+            //        break;
+            //    case "date_desc":
+            //        students = students.OrderByDescending(s => s.EnrollmentDate);
+            //        break;
+            //    default:
+            //        students = students.OrderBy(s => s.LastName);
+            //        break;
+            //}
+            return View(await products.AsNoTracking().ToListAsync());
         }
 
     }
