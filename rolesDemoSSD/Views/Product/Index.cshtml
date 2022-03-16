@@ -1,15 +1,37 @@
-﻿@model IEnumerable<rolesDemoSSD.Models.Products>
+﻿
+@using rolesDemoSSD.Models
+
+@model IEnumerable<rolesDemoSSD.Models.Products>
 
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Products</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form asp-action="Index" method="get" asp-controller="Product">
+    <div class="form-actions no-color">
+        <select class="form-control" id="Category" name="FilterList">
+            <option>Select a Category</option>
+
+            @foreach (var item in Model)
+            {
+                <option type="text" name="Category">@Html.DisplayFor(modelItem => item.Category)</option>
+            }
+        </select>
+
+
+        <input type="submit" name="FilterList" value="Filter" class="btn btn-default" />
+
+    </div>
+</form>
+
+
+
+
+
+
 <table class="table">
     <thead>
         <tr>

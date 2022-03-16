@@ -20,36 +20,29 @@ namespace rolesDemoSSD.Controllers
         }
 
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string filterList)
         {
-            //ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+
             ViewData["CurrentFilter"] = searchString;
+            ViewData["FilteredDropDown"] = filterList;
+
 
             var products = from s in _context.Products
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
                 products = products.Where(s => s.ProductName.ToLower().Contains(searchString));
-
             }
-            //switch (sortOrder)
-            //{
-            //    case "name_desc":
-            //        students = students.OrderByDescending(s => s.LastName);
-            //        break;
-            //    case "Date":
-            //        students = students.OrderBy(s => s.EnrollmentDate);
-            //        break;
-            //    case "date_desc":
-            //        students = students.OrderByDescending(s => s.EnrollmentDate);
-            //        break;
-            //    default:
-            //        students = students.OrderBy(s => s.LastName);
-            //        break;
-            //}
+            if (!String.IsNullOrEmpty(filterList))
+            {
+                products = products.Where(s => s.Category.Contains(filterList));
+            }
+
             return View(await products.AsNoTracking().ToListAsync());
         }
+
+     
+       
 
         public ActionResult Details(int productID)
         {
