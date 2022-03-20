@@ -28,9 +28,6 @@ namespace rolesDemoSSD.Controllers
             return View();
         }
 
-      
-
-
         [Authorize]
         public IActionResult SecureArea()
         {
@@ -41,7 +38,6 @@ namespace rolesDemoSSD.Controllers
             // Usually this section would be in a repository.
             var registeredUser = _context.MyUsers.Where(ru => ru.Email == userName)
                                 .FirstOrDefault();// Use FirstOrDefault() when getting one item
-
 
             return View(registeredUser);
         }
