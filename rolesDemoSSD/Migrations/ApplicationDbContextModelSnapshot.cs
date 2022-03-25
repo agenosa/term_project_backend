@@ -535,7 +535,7 @@ namespace rolesDemoSSD.Migrations
                             Description = "Black Diamond Hot Wire QucikPack 12cm",
                             InvoiceID = 1,
                             LocationTag = "/",
-                            Photo = "/",
+                            Photo = "black-diamond-hotforge-hybrid-quickdraw.jpg",
                             Price = 5.66m,
                             ProductName = "Black Diamond Hot Wire",
                             UserID = 1
@@ -547,9 +547,33 @@ namespace rolesDemoSSD.Migrations
                             Description = "An Average Baseball Glove",
                             InvoiceID = 1,
                             LocationTag = "/",
-                            Photo = "/",
+                            Photo = "baseball-glove.jpeg",
                             Price = 10.66m,
                             ProductName = "Baseball Glove",
+                            UserID = 1
+                        },
+                        new
+                        {
+                            ProductID = 3,
+                            Category = "Winter",
+                            Description = "Sick moves bro",
+                            InvoiceID = 1,
+                            LocationTag = "/",
+                            Photo = "snowboard.jpg",
+                            Price = 78.30m,
+                            ProductName = "Snowboard",
+                            UserID = 1
+                        },
+                        new
+                        {
+                            ProductID = 4,
+                            Category = "Camping",
+                            Description = "Great tent for sleeping outdoors",
+                            InvoiceID = 1,
+                            LocationTag = "/",
+                            Photo = "coleman-tent.jpg",
+                            Price = 63.29m,
+                            ProductName = "Coleman Tent",
                             UserID = 1
                         });
                 });

@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <None Include="wwwroot\images\baseball-glove.jpeg" />
+    <None Include="wwwroot\images\black-diamond-hotforge-hybrid-quickdraw.jpg" />
+    <None Include="wwwroot\images\magnifying-glass.png" />
   </ItemGroup>
 
 </Project>

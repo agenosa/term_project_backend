@@ -82,7 +82,7 @@ namespace rolesDemoSSD.Data
                     ProductName = "Black Diamond Hot Wire",
                     Category = "Climbing",
                     Price = 5.66M,
-                    Photo = "/",
+                    Photo = "black-diamond-hotforge-hybrid-quickdraw.jpg",
                     Description = "Black Diamond Hot Wire QucikPack 12cm",
                     LocationTag = "/",
                     UserID = 1,
@@ -94,8 +94,32 @@ namespace rolesDemoSSD.Data
                     ProductName = "Baseball Glove",
                     Category = "Baseball",
                     Price = 10.66M,
-                    Photo = "/",
+                    Photo = "baseball-glove.jpeg",
                     Description = "An Average Baseball Glove",
+                    LocationTag = "/",
+                    UserID = 1,
+                    InvoiceID = 1
+                },
+                new Products
+                {
+                    ProductID = 3,
+                    ProductName = "Snowboard",
+                    Category = "Winter",
+                    Price = 78.30M,
+                    Photo = "snowboard.jpg",
+                    Description = "Sick moves bro",
+                    LocationTag = "/",
+                    UserID = 1,
+                    InvoiceID = 1
+                },
+                new Products
+                {
+                    ProductID = 4,
+                    ProductName = "Coleman Tent",
+                    Category = "Camping",
+                    Price = 63.29M,
+                    Photo = "coleman-tent.jpg",
+                    Description = "Great tent for sleeping outdoors",
                     LocationTag = "/",
                     UserID = 1,
                     InvoiceID = 1
