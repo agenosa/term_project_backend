@@ -44,7 +44,6 @@ namespace rolesDemoSSD.Controllers
             var registeredUser = _context.MyUsers.Where(ru => ru.Email == userName)
                                 .FirstOrDefault();// Use FirstOrDefault() when getting one item
 
-
             return View(registeredUser);
         }
 
