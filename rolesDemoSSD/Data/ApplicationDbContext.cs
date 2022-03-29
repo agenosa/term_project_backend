@@ -47,7 +47,7 @@ namespace rolesDemoSSD.Data
         // --------------------------------------------------------------------
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Products> Products { get; set; }
-        public DbSet<MyUser> MyUsers { get; set; }
+        public DbSet<MyUser> MyUser { get; set; }
         public DbSet<IPN> IPNs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -25,6 +25,15 @@ namespace rolesDemoSSD.Repositories
             });
             return users;
         }
+
+        public int GetUserId(string email)
+        {
+            int userID = _context.MyUser
+                .Where(u => u.Email == email)
+                .Select(u => u.UserID).FirstOrDefault();
+
+            return userID;
+        }
     }
 
 }

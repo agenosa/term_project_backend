@@ -13,6 +13,7 @@ namespace rolesDemoSSD.Models
         public int UserID { get; set; }
         [Key, Column(Order = 1)]
         public int ProductID { get; set; }
+        public string Email { get; set; }
 
         // Navigation Properties
         // Parents

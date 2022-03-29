@@ -152,7 +152,7 @@ namespace rolesDemoSSD.Areas.Identity.Pages.Account
                         PostalCode = Input.PostalCode,
                         Password = Input.Password
                     };
-                    _context.MyUsers.Add(myusers);
+                    _context.MyUser.Add(myusers);
                     _context.SaveChanges();
 
                     _logger.LogInformation("User created a new account with password.");
