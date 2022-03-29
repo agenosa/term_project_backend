@@ -25,7 +25,6 @@ namespace rolesDemoSSD.Repositories
             });
             return users;
         }
-
     }
 
 }

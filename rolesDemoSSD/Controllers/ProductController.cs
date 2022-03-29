@@ -41,7 +41,13 @@ namespace rolesDemoSSD.Controllers
             return View(await products.AsNoTracking().ToListAsync());
         }
 
-     
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create
        
 
         public ActionResult Details(int productID)

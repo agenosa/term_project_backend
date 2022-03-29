@@ -48,5 +48,13 @@ namespace rolesDemoSSD.Repositories
             return product;
 
         }
+        
+        public int Add(Products products)
+        {
+            _context.Products.Add(products);
+            _context.SaveChanges();
+
+            return products.ProductID;
+        }
     }
 }
