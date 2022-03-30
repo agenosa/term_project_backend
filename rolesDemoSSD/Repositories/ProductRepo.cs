@@ -17,9 +17,9 @@ namespace rolesDemoSSD.Repositories
         }
 
         // Get all users in the database.
-        public IEnumerable<ProductVM> All()
+        public IEnumerable<Products> All()
         {
-            var products = _context.Products.Select(p => new ProductVM()
+            var products = _context.Products.Select(p => new Products()
             {
                 ProductID = p.ProductID,
                 ProductName = p.ProductName,
@@ -48,13 +48,27 @@ namespace rolesDemoSSD.Repositories
             return product;
 
         }
-        
-        public int Add(Products products)
-        {
-            _context.Products.Add(products);
-            _context.SaveChanges();
 
-            return products.ProductID;
-        }
+        //public int Add(ProductVM pVM)
+        //{
+
+        //    Products product = new Products()
+        //    {
+        //        ProductID = pVM.ProductID,
+        //        ProductName = pVM.ProductName,
+        //        Category = pVM.Category,
+        //        Price = pVM.Price,
+        //        Photo = pVM.Photo,
+        //        Description = pVM.Description,
+        //        LocationTag = pVM.LocationTag,
+        //        UserID = pVM.UserID,
+        //        InvoiceID = pVM.InvoiceID
+        //    };
+
+        //    _context.Products.Add(product);
+        //    _context.SaveChanges();
+
+        //    return true;
+        //}
     }
 }

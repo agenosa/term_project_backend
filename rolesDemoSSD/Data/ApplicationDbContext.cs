@@ -48,6 +48,7 @@ namespace rolesDemoSSD.Data
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<MyUser> MyUser { get; set; }
+        //public DbSet<ProductUser> ProductUsers { get; set; }
         public DbSet<IPN> IPNs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -68,6 +69,30 @@ namespace rolesDemoSSD.Data
                 .WithMany(p => p.Products)
                 .HasForeignKey(fk => new { fk.InvoiceID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            //modelBuilder.Entity<ProductUser>()
+            //    .HasOne(p => p.Products)
+            //    .WithMany(p => p.ProductUsers)
+            //    .HasForeignKey(fk => new { fk.ProductID })
+            //    .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            //modelBuilder.Entity<ProductUser>()
+            //    .HasOne(p => p.MyUser)
+            //    .WithMany(p => p.ProductUsers)
+            //    .HasForeignKey(fk => new { fk.UserID })
+            //    .onDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<ProduceSupplier>()
+            //    .HasOne(p => p.Produce)
+            //    .WithMany(p => p.ProduceSuppliers)
+            //    .HasForeignKey(fk => new { fk.ProduceID })
+            //    .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            //modelBuilder.Entity<ProduceSupplier>()
+            //    .HasOne(p => p.Supplier)
+            //    .WithMany(p => p.ProduceSuppliers)
+            //    .HasForeignKey(fk => new { fk.SupplierID })
+            //    .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
             modelBuilder.Entity<Invoice>()
                 .HasOne(p => p.MyUser)
@@ -144,6 +169,21 @@ namespace rolesDemoSSD.Data
                     Email = "joshig@bcit.ca",
                     City = "Vancouver",
                     StreetAddress = "45 Mayfair Ave",
+                    Country = "Canada",
+                    PostalCode = "V5V43N",
+                    Password = "P@ssw0rd!",
+                    isAdmin = true
+                },
+                new MyUser
+                {
+                    UserID = 2,
+                    UserName = "Ross024",
+                    FirstName = "Ross",
+                    LastName = "Scharbach",
+                    PhoneNumber = "2501238394",
+                    Email = "ross.scharbach@gmail.com",
+                    City = "Vancouver",
+                    StreetAddress = "42 Sitka Ave",
                     Country = "Canada",
                     PostalCode = "V5V43N",
                     Password = "P@ssw0rd!",

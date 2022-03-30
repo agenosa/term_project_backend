@@ -26,7 +26,6 @@ namespace rolesDemoSSD.Controllers
             ViewData["CurrentFilter"] = searchString;
             ViewData["FilteredDropDown"] = filterList;
 
-
             var products = from s in _context.Products
                            select s;
             if (!String.IsNullOrEmpty(searchString))
@@ -47,11 +46,23 @@ namespace rolesDemoSSD.Controllers
         //}
 
         //[HttpPost]
-        //public ActionResult Create()
+        //public ActionResult Create(ProductVM pVM)
         //{
+        //    ProductRepo proRepo = new ProductRepo(_context);
+        //    UserRepo userRepo = new UserRepo(_context);
 
+        //    if (ModelState.IsValid)
+        //    {
+        //        pVM.UserID = userRepo.GetUserId(User.Identity.Name);
+        //        proRepo.Add(pVM);
+        //        return RedirectToAction("Index", "Product");
+        //    }
+        //    else
+        //    {
+        //        return View(pVM);
+        //    }
         //}
-       
+
 
         public ActionResult Details(int productID)
         {
