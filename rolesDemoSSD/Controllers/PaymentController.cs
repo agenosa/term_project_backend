@@ -20,9 +20,11 @@ namespace rolesDemoSSD.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.TotalPrice = "3.55";
-            var items = _context.IPNs;
-            return View();
+            var mycart = _context.Carts.Where(c => c.MyUser.UserName == User.Identity.Name).ToList();
+            return View(mycart);
+            //ViewBag.TotalPrice = "3.55";
+            //var items = _context.IPNs;
+            //return View();
         }
 
         // This method receives and stores the Paypal transaction details.

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace rolesDemoSSD.Migrations
 {
-    public partial class iC : Migration
+    public partial class InitialCreate3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -87,7 +87,7 @@ namespace rolesDemoSSD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MyUsers",
+                name: "MyUser",
                 columns: table => new
                 {
                     UserID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -102,11 +102,12 @@ namespace rolesDemoSSD.Migrations
                     Country = table.Column<string>(type: "TEXT", nullable: false),
                     PostalCode = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
-                    isAdmin = table.Column<bool>(type: "INTEGER", nullable: false)
+                    isAdmin = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CartID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MyUsers", x => x.UserID);
+                    table.PrimaryKey("PK_MyUser", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -279,6 +280,27 @@ namespace rolesDemoSSD.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    CartID = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductID = table.Column<int>(type: "INTEGER", nullable: false),
+                    AddedOn = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.CartID);
+                    table.ForeignKey(
+                        name: "FK_Carts_MyUser_CartID",
+                        column: x => x.CartID,
+                        principalTable: "MyUser",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Invoices",
                 columns: table => new
                 {
@@ -293,9 +315,9 @@ namespace rolesDemoSSD.Migrations
                 {
                     table.PrimaryKey("PK_Invoices", x => x.InvoiceID);
                     table.ForeignKey(
-                        name: "FK_Invoices_MyUsers_UserID",
+                        name: "FK_Invoices_MyUser_UserID",
                         column: x => x.UserID,
-                        principalTable: "MyUsers",
+                        principalTable: "MyUser",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -338,7 +360,8 @@ namespace rolesDemoSSD.Migrations
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     LocationTag = table.Column<string>(type: "TEXT", nullable: false),
                     UserID = table.Column<int>(type: "INTEGER", nullable: false),
-                    InvoiceID = table.Column<int>(type: "INTEGER", nullable: false)
+                    InvoiceID = table.Column<int>(type: "INTEGER", nullable: false),
+                    CartID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -350,9 +373,9 @@ namespace rolesDemoSSD.Migrations
                         principalColumn: "InvoiceID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_MyUsers_UserID",
+                        name: "FK_Products_MyUser_UserID",
                         column: x => x.UserID,
-                        principalTable: "MyUsers",
+                        principalTable: "MyUser",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -382,17 +405,42 @@ namespace rolesDemoSSD.Migrations
                         principalColumn: "InvoiceID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductVM_MyUsers_UserID",
+                        name: "FK_ProductVM_MyUser_UserID",
                         column: x => x.UserID,
-                        principalTable: "MyUsers",
+                        principalTable: "MyUser",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProductCart",
+                columns: table => new
+                {
+                    CartID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProductID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Qty = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductCart", x => new { x.ProductID, x.CartID });
+                    table.ForeignKey(
+                        name: "FK_ProductCart_Carts_CartID",
+                        column: x => x.CartID,
+                        principalTable: "Carts",
+                        principalColumn: "CartID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProductCart_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
-                table: "MyUsers",
-                columns: new[] { "UserID", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "PostalCode", "StreetAddress", "UserName", "isAdmin" },
-                values: new object[] { 1, "Vancouver", "Canada", "joshig@bcit.ca", "Gaurav", "Joshi", "P@ssw0rd!", "7788888888", "V5V43N", "45 Mayfair Ave", "Gaurav453", true });
+                table: "MyUser",
+                columns: new[] { "UserID", "CartID", "City", "Country", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "PostalCode", "StreetAddress", "UserName", "isAdmin" },
+                values: new object[] { 1, 0, "Vancouver", "Canada", "joshig@bcit.ca", "Gaurav", "Joshi", "P@ssw0rd!", "7788888888", "V5V43N", "45 Mayfair Ave", "Gaurav453", true });
 
             migrationBuilder.InsertData(
                 table: "Produces",
@@ -421,23 +469,23 @@ namespace rolesDemoSSD.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
-                values: new object[] { 1, "Climbing", "Black Diamond Hot Wire QucikPack 12cm", 1, "/", "black-diamond-hotforge-hybrid-quickdraw.jpg", 5.66m, "Black Diamond Hot Wire", 1 });
+                columns: new[] { "ProductID", "CartID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
+                values: new object[] { 1, 0, "Climbing", "Black Diamond Hot Wire QucikPack 12cm", 1, "/", "black-diamond-hotforge-hybrid-quickdraw.jpg", 5.66m, "Black Diamond Hot Wire", 1 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
-                values: new object[] { 2, "Baseball", "An Average Baseball Glove", 1, "/", "baseball-glove.jpeg", 10.66m, "Baseball Glove", 1 });
+                columns: new[] { "ProductID", "CartID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
+                values: new object[] { 2, 0, "Baseball", "An Average Baseball Glove", 1, "/", "baseball-glove.jpeg", 10.66m, "Baseball Glove", 1 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
-                values: new object[] { 3, "Winter", "Sick moves bro", 1, "/", "snowboard.jpg", 78.30m, "Snowboard", 1 });
+                columns: new[] { "ProductID", "CartID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
+                values: new object[] { 3, 0, "Winter", "Sick moves bro", 1, "/", "snowboard.jpg", 78.30m, "Snowboard", 1 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
-                values: new object[] { 4, "Camping", "Great tent for sleeping outdoors", 1, "/", "coleman-tent.jpg", 63.29m, "Coleman Tent", 1 });
+                columns: new[] { "ProductID", "CartID", "Category", "Description", "InvoiceID", "LocationTag", "Photo", "Price", "ProductName", "UserID" },
+                values: new object[] { 4, 0, "Camping", "Great tent for sleeping outdoors", 1, "/", "coleman-tent.jpg", 63.29m, "Coleman Tent", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -487,6 +535,11 @@ namespace rolesDemoSSD.Migrations
                 column: "SupplierID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductCart_CartID",
+                table: "ProductCart",
+                column: "CartID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_InvoiceID",
                 table: "Products",
                 column: "InvoiceID");
@@ -534,7 +587,7 @@ namespace rolesDemoSSD.Migrations
                 name: "ProduceSuppliers");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ProductCart");
 
             migrationBuilder.DropTable(
                 name: "ProductVM");
@@ -561,10 +614,16 @@ namespace rolesDemoSSD.Migrations
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
                 name: "Invoices");
 
             migrationBuilder.DropTable(
-                name: "MyUsers");
+                name: "MyUser");
         }
     }
 }

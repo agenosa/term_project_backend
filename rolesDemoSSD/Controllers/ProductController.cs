@@ -14,6 +14,8 @@ namespace rolesDemoSSD.Controllers
     {
         readonly ApplicationDbContext _context;
 
+        public object Session { get; private set; }
+
         public ProductController(ApplicationDbContext context)
         {
             _context = context;
@@ -59,6 +61,40 @@ namespace rolesDemoSSD.Controllers
             ProductRepo productRepo = new ProductRepo(_context);
             ProductVM productVM = productRepo.Get(productID);
             return View(productVM);
+        }
+
+        public ActionResult AddToCart(Products pro)
+        {
+            Cart c = new Cart();
+            c.AddedOn = DateTime.Now;
+            c.UserID = _context.MyUser.Where(m => m.UserName == User.Identity.Name).FirstOrDefault().UserID;
+            c.ProductID = pro.ProductID;
+            c.UpdatedOn = DateTime.Now;
+
+            _context.Carts.Add(c);
+            _context.SaveChanges();
+
+            TempData["ProductAddedToCart"] = "Product added to cart successfully";
+            //if (Session["cart"] == null)
+            //{
+            //    List<Products> li = new List<Products>();
+
+            //    li.Add(pro);
+            //    Session["cart"] = li;
+            //    ViewBag.cart = li.Count();
+            //    Session["count"] = 1;
+            //}
+            //else
+            //{
+            //    List<Products> li = (List<Products>)Session["cart"];
+            //    li.Add(pro);
+            //    Session["cart"] = li;
+            //    ViewBag.cart = li.Count();
+            //    Session["count"] = Convert.ToInt32(Session["count"]) + 1;
+
+            //}
+            return RedirectToAction("Index", "Product");
+
         }
     }
 }

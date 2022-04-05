@@ -231,6 +231,28 @@ namespace rolesDemoSSD.Migrations
                     b.ToTable("MyRegisteredUsers");
                 });
 
+            modelBuilder.Entity("rolesDemoSSD.Models.Cart", b =>
+                {
+                    b.Property<int>("CartID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AddedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CartID");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("rolesDemoSSD.Models.IPN", b =>
                 {
                     b.Property<string>("paymentID")
@@ -328,6 +350,9 @@ namespace rolesDemoSSD.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CartID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -373,12 +398,13 @@ namespace rolesDemoSSD.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("MyUsers");
+                    b.ToTable("MyUser");
 
                     b.HasData(
                         new
                         {
                             UserID = 1,
+                            CartID = 0,
                             City = "Vancouver",
                             Country = "Canada",
                             Email = "joshig@bcit.ca",
@@ -440,6 +466,24 @@ namespace rolesDemoSSD.Migrations
                         });
                 });
 
+            modelBuilder.Entity("rolesDemoSSD.Models.ProductCart", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CartID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ProductID", "CartID");
+
+                    b.HasIndex("CartID");
+
+                    b.ToTable("ProductCart");
+                });
+
             modelBuilder.Entity("rolesDemoSSD.Models.ProductVM", b =>
                 {
                     b.Property<int>("ProductID")
@@ -490,6 +534,9 @@ namespace rolesDemoSSD.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CartID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -531,6 +578,7 @@ namespace rolesDemoSSD.Migrations
                         new
                         {
                             ProductID = 1,
+                            CartID = 0,
                             Category = "Climbing",
                             Description = "Black Diamond Hot Wire QucikPack 12cm",
                             InvoiceID = 1,
@@ -543,6 +591,7 @@ namespace rolesDemoSSD.Migrations
                         new
                         {
                             ProductID = 2,
+                            CartID = 0,
                             Category = "Baseball",
                             Description = "An Average Baseball Glove",
                             InvoiceID = 1,
@@ -555,6 +604,7 @@ namespace rolesDemoSSD.Migrations
                         new
                         {
                             ProductID = 3,
+                            CartID = 0,
                             Category = "Winter",
                             Description = "Sick moves bro",
                             InvoiceID = 1,
@@ -567,6 +617,7 @@ namespace rolesDemoSSD.Migrations
                         new
                         {
                             ProductID = 4,
+                            CartID = 0,
                             Category = "Camping",
                             Description = "Great tent for sleeping outdoors",
                             InvoiceID = 1,
@@ -698,6 +749,17 @@ namespace rolesDemoSSD.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("rolesDemoSSD.Models.Cart", b =>
+                {
+                    b.HasOne("rolesDemoSSD.Models.MyUser", "MyUser")
+                        .WithOne("Cart")
+                        .HasForeignKey("rolesDemoSSD.Models.Cart", "CartID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("MyUser");
+                });
+
             modelBuilder.Entity("rolesDemoSSD.Models.Invoice", b =>
                 {
                     b.HasOne("rolesDemoSSD.Models.MyUser", "MyUser")
@@ -726,6 +788,25 @@ namespace rolesDemoSSD.Migrations
                     b.Navigation("Produce");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.ProductCart", b =>
+                {
+                    b.HasOne("rolesDemoSSD.Models.Cart", "Cart")
+                        .WithMany("ProductCart")
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("rolesDemoSSD.Models.Products", "Product")
+                        .WithMany("ProductCart")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("rolesDemoSSD.Models.ProductVM", b =>
@@ -766,6 +847,11 @@ namespace rolesDemoSSD.Migrations
                     b.Navigation("MyUser");
                 });
 
+            modelBuilder.Entity("rolesDemoSSD.Models.Cart", b =>
+                {
+                    b.Navigation("ProductCart");
+                });
+
             modelBuilder.Entity("rolesDemoSSD.Models.Invoice", b =>
                 {
                     b.Navigation("Products");
@@ -773,6 +859,8 @@ namespace rolesDemoSSD.Migrations
 
             modelBuilder.Entity("rolesDemoSSD.Models.MyUser", b =>
                 {
+                    b.Navigation("Cart");
+
                     b.Navigation("Invoices");
 
                     b.Navigation("Products");
@@ -781,6 +869,11 @@ namespace rolesDemoSSD.Migrations
             modelBuilder.Entity("rolesDemoSSD.Models.Produce", b =>
                 {
                     b.Navigation("ProduceSuppliers");
+                });
+
+            modelBuilder.Entity("rolesDemoSSD.Models.Products", b =>
+                {
+                    b.Navigation("ProductCart");
                 });
 
             modelBuilder.Entity("rolesDemoSSD.Models.Supplier", b =>

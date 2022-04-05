@@ -28,7 +28,9 @@ namespace rolesDemoSSD.Models
         public int UserID { get; set; }
         [Required]
         public int InvoiceID { get; set; }
+        public int CartID { get; set; }
 
+        public virtual ICollection<ProductCart> ProductCart { get; set; }
         public virtual MyUser MyUser { get; set; }
         public virtual Invoice Invoice { get; set; }
     }

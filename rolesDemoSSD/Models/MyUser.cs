@@ -40,7 +40,10 @@ namespace rolesDemoSSD.Models
         public string Password { get; set; }
         [Required]
         public bool isAdmin { get; set; }
+
+        public int CartID { get; set; }
         public virtual ICollection<Products> Products { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual Cart Cart { get; set; }
     }
 }

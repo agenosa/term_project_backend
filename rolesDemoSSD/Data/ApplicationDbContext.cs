@@ -49,6 +49,7 @@ namespace rolesDemoSSD.Data
         public DbSet<Products> Products { get; set; }
         public DbSet<MyUser> MyUser { get; set; }
         public DbSet<IPN> IPNs { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -68,12 +69,35 @@ namespace rolesDemoSSD.Data
                 .WithMany(p => p.Products)
                 .HasForeignKey(fk => new { fk.InvoiceID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+            
+            modelBuilder.Entity<ProductCart>()
+                .HasKey(ps => new { ps.ProductID, ps.CartID });
+
+            // Define foreign keys here. Do not use foreign key annotations.
+            modelBuilder.Entity<ProductCart>()
+                .HasOne(p => p.Product)
+                .WithMany(p => p.ProductCart)
+                .HasForeignKey(fk => new { fk.ProductID })
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            modelBuilder.Entity<ProductCart>()
+                .HasOne(p => p.Cart)
+                .WithMany(p => p.ProductCart)
+                .HasForeignKey(fk => new { fk.CartID })
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
             modelBuilder.Entity<Invoice>()
                 .HasOne(p => p.MyUser)
                 .WithMany(p => p.Invoices)
                 .HasForeignKey(fk => new { fk.UserID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
+            modelBuilder.Entity<Cart>()
+                .HasOne(p => p.MyUser)
+                .WithOne(p => p.Cart)
+                .HasForeignKey<Cart>(fk => new { fk.CartID })
+                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
+
 
             modelBuilder.Entity<Products>().HasData(
                 new Products
@@ -86,7 +110,8 @@ namespace rolesDemoSSD.Data
                     Description = "Black Diamond Hot Wire QucikPack 12cm",
                     LocationTag = "/",
                     UserID = 1,
-                    InvoiceID = 1
+                    InvoiceID = 1,
+                    CartID = 0
                 },
                 new Products
                 {
@@ -98,7 +123,8 @@ namespace rolesDemoSSD.Data
                     Description = "An Average Baseball Glove",
                     LocationTag = "/",
                     UserID = 1,
-                    InvoiceID = 1
+                    InvoiceID = 1,
+                    CartID = 0
                 },
                 new Products
                 {
@@ -110,7 +136,8 @@ namespace rolesDemoSSD.Data
                     Description = "Sick moves bro",
                     LocationTag = "/",
                     UserID = 1,
-                    InvoiceID = 1
+                    InvoiceID = 1,
+                    CartID = 0
                 },
                 new Products
                 {
