@@ -9,7 +9,7 @@
 }
 
 <h1>Products</h1>
-
+<p>@TempData["ProductAddedToCart"]</p>
 <form asp-action="Index" method="get" asp-controller="Product">
     <div class="form-actions no-color">
         <select class="form-control" id="Category" name="FilterList">
@@ -40,7 +40,7 @@
                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.ProductName)</h5>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
                 <p class="card-text">@Html.DisplayFor(modelItem => item.Price)</p>
-                <p><a asp-action="AddToCart" asp-route-id="@item">Add to cart</a></p>
+                <p><a asp-action="AddToCart" asp-route-id="item">Add to cart</a></p>
 
                 <form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
                     <input type="hidden" name="cmd" value="_s-xclick">

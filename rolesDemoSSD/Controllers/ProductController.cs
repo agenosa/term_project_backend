@@ -78,7 +78,7 @@ namespace rolesDemoSSD.Controllers
         {
             Cart c = new Cart();
             c.AddedOn = DateTime.Now;
-            c.UserID = _context.MyUser.Where(m => m.UserName == User.Identity.Name).FirstOrDefault().UserID;
+            c.UserID = _context.MyUser.Where(m => m.Email == User.Identity.Name).FirstOrDefault().UserID;
             c.ProductID = pro.ProductID;
             c.UpdatedOn = DateTime.Now;
 

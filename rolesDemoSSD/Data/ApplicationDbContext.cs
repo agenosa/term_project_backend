@@ -120,7 +120,7 @@ namespace rolesDemoSSD.Data
             modelBuilder.Entity<Cart>()
                 .HasOne(p => p.MyUser)
                 .WithOne(p => p.Cart)
-                .HasForeignKey<Cart>(fk => new { fk.CartID })
+                .HasForeignKey<Cart>(fk => new { fk.UserID })
                 .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
 
 

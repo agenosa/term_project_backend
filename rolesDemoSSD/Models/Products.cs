@@ -19,7 +19,7 @@ namespace rolesDemoSSD.Models
         public decimal Price { get; set; }
         [Required]
         [DataType(DataType.ImageUrl)]
-        public string Photo { get; set; } // ^^^^^will have to figure out better variable type for this??
+        public string Photo { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]

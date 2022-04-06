@@ -35,6 +35,13 @@ namespace rolesDemoSSD
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // Add this before AddMvc() is called.
+            services.AddSession(options => {
+                // Set timeout.
+                options.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -52,6 +59,7 @@ namespace rolesDemoSSD
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

@@ -1,7 +1,4 @@
-﻿
-@using rolesDemoSSD.Models
-
-@model IEnumerable<rolesDemoSSD.Models.Products>
+﻿@model IEnumerable<rolesDemoSSD.Models.Cart>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,58 +7,59 @@
 <h1>My Cart</h1>
 
 <p>
-    <a asp-action="Create">Add More</a>
+    <a asp-controller="Product" asp-action="Index">Continue Shopping</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                @Html.DisplayNameFor(model => model.UserID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.ProductID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.AddedOn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Photo)
+                @Html.DisplayNameFor(model => model.UpdatedOn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.MyUser)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var item in Model)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
+                    @Html.DisplayFor(modelItem => item.UserID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category)
+                    @Html.DisplayFor(modelItem => item.ProductID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.AddedOn)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Photo)
+                    @Html.DisplayFor(modelItem => item.UpdatedOn)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.MyUser.City)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.CartID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CartID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CartID">Delete</a>
                 </td>
             </tr>
-        }*@
+        }
     </tbody>
 </table>
 
+@*Paypal Feature*@
 <div id="paypal-button"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -163,4 +161,3 @@
         },
     }, '#paypal-button');
 </script>
-
