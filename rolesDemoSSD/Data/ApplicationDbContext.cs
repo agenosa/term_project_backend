@@ -41,10 +41,6 @@ namespace rolesDemoSSD.Data
 
         // -------------------------------------------------------------------
         // Define entity collections.
-        public DbSet<Produce> Produces { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<ProduceSupplier> ProduceSuppliers { get; set; }
-        // --------------------------------------------------------------------
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<MyUser> MyUser { get; set; }
@@ -216,37 +212,6 @@ namespace rolesDemoSSD.Data
                     Password = "P@ssw0rd!",
                     isAdmin = true
                 });
-
-            // -------------------------------------------------------------------
-            // Define composite primary keys.
-            modelBuilder.Entity<ProduceSupplier>()
-                .HasKey(ps => new { ps.ProduceID, ps.SupplierID });
-
-            // Define foreign keys here. Do not use foreign key annotations.
-            modelBuilder.Entity<ProduceSupplier>()
-                .HasOne(p => p.Produce)
-                .WithMany(p => p.ProduceSuppliers)
-                .HasForeignKey(fk => new { fk.ProduceID })
-                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
-
-            modelBuilder.Entity<ProduceSupplier>()
-                .HasOne(p => p.Supplier)
-                .WithMany(p => p.ProduceSuppliers)
-                .HasForeignKey(fk => new { fk.SupplierID })
-                .OnDelete(DeleteBehavior.Restrict); // Prevent cascade delete
-            
-            
-            modelBuilder.Entity<Produce>().HasData(
-                new Produce { ProduceID = 1, Description = "Oranges" });
-
-            modelBuilder.Entity<Supplier>().HasData(
-                new Supplier { SupplierID = 1, SupplierName = "Kin's Market" },
-                new Supplier { SupplierID = 2, SupplierName = "Fresh Street Market" });
-
-            modelBuilder.Entity<ProduceSupplier>().HasData(
-                new ProduceSupplier { SupplierID = 1, ProduceID = 1, Qty = 25 });
-
-            // -----------------------------------------------------------------------------------
         }
 
         public DbSet<rolesDemoSSD.Models.ProductVM> ProductVM { get; set; }
